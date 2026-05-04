@@ -1,3 +1,6 @@
 [submodule "data"]
 	path = data
 	url = https://github.com/Popolitics/data.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/Popolitics/frontend.git
