@@ -7,3 +7,6 @@
 [submodule "ia-service"]
 	path = ia-service
 	url = https://github.com/Popolitics/ia-service.git
+[submodule "data-service"]
+	path = data-service
+	url = https://github.com/Popolitics/data-service.git
