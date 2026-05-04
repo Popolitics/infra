@@ -4,3 +4,6 @@
 [submodule "frontend"]
 	path = frontend
 	url = https://github.com/Popolitics/frontend.git
+[submodule "ia-service"]
+	path = ia-service
+	url = https://github.com/Popolitics/ia-service.git
