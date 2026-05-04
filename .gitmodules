@@ -10,3 +10,6 @@
 [submodule "data-service"]
 	path = data-service
 	url = https://github.com/Popolitics/data-service.git
+[submodule "auth-service"]
+	path = auth-service
+	url = https://github.com/Popolitics/auth-service.git
