@@ -16,3 +16,6 @@
 [submodule "api"]
 	path = api
 	url = https://github.com/Popolitics/api.git
+[submodule "documentation"]
+	path = documentation
+	url = https://github.com/Popolitics/documentation.git
