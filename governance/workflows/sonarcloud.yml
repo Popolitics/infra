@@ -1,23 +1,4 @@
-# À copier dans chaque repo sous : .github/workflows/sonarcloud.yml
-#
-# Analyse qualité/sécurité du code via SonarCloud (gratuit pour repos publics,
-# gratuit jusqu'à ~50k lignes de code pour repos privés d'une même organisation).
-#
-# Prérequis avant d'ajouter ce workflow à un repo (voir governance/README.md
-# section SonarCloud) :
-#   1. Organisation SonarCloud "popolitics" créée (import depuis GitHub).
-#   2. Projet créé dans SonarCloud pour CE repo, avec sa project key.
-#   3. Secret SONAR_TOKEN ajouté — au niveau du REPO (Settings → Secrets and
-#      variables → Actions → New repository secret). Le secret d'org exige
-#      un plan payant pour restreindre l'accès à des repos privés, donc on
-#      répète l'ajout par repo (6 fois).
-#   4. sonar-project.properties présent à la racine du repo (projectKey +
-#      organization corrects — voir gabarit dans governance/).
-#
-# ⚠️ N'ajoute ce fichier à un repo qu'une fois les 4 prérequis remplis : sans
-# SONAR_TOKEN configuré, le job échoue (impossible de le "skip proprement",
-# voir commentaire plus bas).
-
+# A mettre dans chaque repository
 name: sonarcloud
 
 on:
@@ -34,15 +15,9 @@ jobs:
   sonarcloud:
     name: sonarcloud
     runs-on: ubuntu-latest
-    # Pas de garde "if secrets.SONAR_TOKEN" ici : GitHub interdit le context
-    # `secrets` dans un `if:` de job/step (erreur "Unrecognized named-value:
-    # 'secrets'"). N'ajoute ce workflow à un repo qu'une fois SONAR_TOKEN
-    # réellement configuré (Settings → Secrets and variables → Actions).
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
-          # SonarCloud a besoin de l'historique complet pour le calcul du
-          # "new code" (blame, dates de commit) et le diff de la PR.
           fetch-depth: 0
 
       - name: SonarQube Scan
