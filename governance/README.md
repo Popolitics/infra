@@ -133,7 +133,3 @@ Dans `Settings → Code security` de chaque repo (ou org-wide) :
 | Contrôles de gouvernance verts avant merge | `required_status_checks` + `pr-checks.yml` |
 | Tests/lint/build verts avant merge | Ajouter leurs checks au `required_status_checks` de chaque dépôt |
 | Pas de push direct / force-push sur `main` | `ruleset-protect-main.json` |
-
-> `develop` est volontairement exclue du ruleset de protection de `main`. Si elle
-> devient une branche d'intégration partagée, ajoute-lui un ruleset de PR et de checks
-> requis : le workflow seul ne bloque pas un merge ni un push direct.
