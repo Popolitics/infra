@@ -1,0 +1,47 @@
+# À copier dans chaque repo sous : .github/workflows/sonarcloud.yml
+#
+# Analyse qualité/sécurité du code via SonarCloud (gratuit pour repos publics,
+# gratuit jusqu'à ~50k lignes de code pour repos privés d'une même organisation).
+#
+# Prérequis avant d'ajouter ce workflow à un repo (voir governance/README.md
+# section SonarCloud) :
+#   1. Organisation SonarCloud "popolitics" créée (import depuis GitHub).
+#   2. Projet créé dans SonarCloud pour CE repo, avec sa project key.
+#   3. Secret SONAR_TOKEN ajouté (idéalement au niveau de l'org GitHub, pour
+#      ne pas le répéter dans les 6 repos) : Settings → Secrets and
+#      variables → Actions → New organization secret.
+#   4. sonar-project.properties présent à la racine du repo (projectKey +
+#      organization corrects — voir gabarit dans governance/).
+#
+# Le job ne tourne pas (skip propre, pas d'échec CI) si SONAR_TOKEN n'est
+# pas encore configuré, pour ne jamais bloquer un repo avant onboarding.
+
+name: sonarcloud
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  sonarcloud:
+    name: sonarcloud
+    runs-on: ubuntu-latest
+    # Ne s'exécute que si le secret est configuré sur ce repo/org — évite un
+    # échec CI systématique sur les repos pas encore onboardés à SonarCloud.
+    if: ${{ secrets.SONAR_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # SonarCloud a besoin de l'historique complet pour le calcul du
+          # "new code" (blame, dates de commit) et le diff de la PR.
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
