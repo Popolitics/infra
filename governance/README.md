@@ -122,7 +122,37 @@ Dans `Settings → Code security` de chaque repo (ou org-wide) :
 
 ---
 
-## 7. Récapitulatif des conventions forcées
+## 7. SonarCloud (qualité de code)
+
+Gratuit pour repos publics, gratuit jusqu'à ~50k lignes de code pour repos
+privés d'une même organisation — suffisant pour démarrer.
+
+### Setup (une fois)
+1. [sonarcloud.io](https://sonarcloud.io) → **Sign up with GitHub** → importer
+   l'organisation `Popolitics`. Free plan.
+2. Pour **chaque repo** : `+ → Analyze new project` → sélectionner le repo →
+   noter la **project key** générée (souvent `Popolitics_<repo>`).
+3. **Générer un token** : *My Account → Security → Generate Token*.
+4. Ajouter le token comme **secret d'organisation GitHub** (pas repo par
+   repo) : `github.com/organizations/Popolitics/settings/secrets/actions` →
+   `New organization secret` → nom `SONAR_TOKEN`, valeur = le token → limiter
+   aux repos concernés.
+
+### Par repo (une fois le compte prêt)
+1. Copier `governance/sonar-project.properties.template` →
+   `<repo>/sonar-project.properties`, remplacer `<REPO_NAME>` par la vraie
+   project key notée à l'étape 2.
+2. Copier `governance/workflows/sonarcloud.yml` →
+   `<repo>/.github/workflows/sonarcloud.yml`.
+3. Ouvrir une PR de test : le job `sonarcloud` doit apparaître et passer.
+   Tant que `SONAR_TOKEN` n'est pas configuré, le job est **skip proprement**
+   (pas d'échec CI) grâce à `if: secrets.SONAR_TOKEN != ''`.
+4. Ajouter `sonarcloud` à la liste des `required_status_checks` du ruleset /
+   de la branch protection de ce repo, une fois validé.
+
+---
+
+## 8. Récapitulatif des conventions forcées
 
 | Convention (CONTRIBUTING) | Forcée par |
 |---|---|

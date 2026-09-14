@@ -1,0 +1,16 @@
+# Gabarit — copier sous <repo>/sonar-project.properties et adapter <REPO_NAME>.
+#
+# Valeurs à récupérer sur sonarcloud.io après création du projet :
+# sonar.organization = clé de l'organisation SonarCloud (probablement "popolitics")
+# sonar.projectKey   = clé donnée par SonarCloud lors de la création du projet
+#                       (souvent "Popolitics_<repo>" par défaut à l'import GitHub)
+
+sonar.organization=popolitics
+sonar.projectKey=Popolitics_<REPO_NAME>
+
+# Racine du code source à analyser (ajuster si besoin par repo, ex: "app" pour frontend)
+sonar.sources=.
+sonar.sourceEncoding=UTF-8
+
+# Exclusions communes — à adapter par repo (venv, migrations générées, node_modules, etc.)
+sonar.exclusions=**/migrations/**,**/*.pyc,**/__pycache__/**,**/.venv/**,**/node_modules/**,**/.next/**
