@@ -7,14 +7,16 @@
 # section SonarCloud) :
 #   1. Organisation SonarCloud "popolitics" créée (import depuis GitHub).
 #   2. Projet créé dans SonarCloud pour CE repo, avec sa project key.
-#   3. Secret SONAR_TOKEN ajouté (idéalement au niveau de l'org GitHub, pour
-#      ne pas le répéter dans les 6 repos) : Settings → Secrets and
-#      variables → Actions → New organization secret.
+#   3. Secret SONAR_TOKEN ajouté — au niveau du REPO (Settings → Secrets and
+#      variables → Actions → New repository secret). Le secret d'org exige
+#      un plan payant pour restreindre l'accès à des repos privés, donc on
+#      répète l'ajout par repo (6 fois).
 #   4. sonar-project.properties présent à la racine du repo (projectKey +
 #      organization corrects — voir gabarit dans governance/).
 #
-# Le job ne tourne pas (skip propre, pas d'échec CI) si SONAR_TOKEN n'est
-# pas encore configuré, pour ne jamais bloquer un repo avant onboarding.
+# ⚠️ N'ajoute ce fichier à un repo qu'une fois les 4 prérequis remplis : sans
+# SONAR_TOKEN configuré, le job échoue (impossible de le "skip proprement",
+# voir commentaire plus bas).
 
 name: sonarcloud
 
@@ -32,9 +34,10 @@ jobs:
   sonarcloud:
     name: sonarcloud
     runs-on: ubuntu-latest
-    # Ne s'exécute que si le secret est configuré sur ce repo/org — évite un
-    # échec CI systématique sur les repos pas encore onboardés à SonarCloud.
-    if: ${{ secrets.SONAR_TOKEN != '' }}
+    # Pas de garde "if secrets.SONAR_TOKEN" ici : GitHub interdit le context
+    # `secrets` dans un `if:` de job/step (erreur "Unrecognized named-value:
+    # 'secrets'"). N'ajoute ce workflow à un repo qu'une fois SONAR_TOKEN
+    # réellement configuré (Settings → Secrets and variables → Actions).
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
