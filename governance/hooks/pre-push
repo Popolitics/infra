@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+#
+# pre-push — refuse de pousser une branche dont le nom ne respecte pas la
+# convention POPolitics : category/TICKET-123-short-description
+#
+# Contourner (à éviter) : git push --no-verify
+#
 set -euo pipefail
 
 pattern='^(feat|fix|docs|refactor|chore|perf|test)/[A-Z]{2,}-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'

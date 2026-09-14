@@ -1,3 +1,13 @@
+# À copier dans chaque repo sous : .github/workflows/pr-checks.yml
+#
+# Vérifie, sur chaque Pull Request vers main/develop :
+#   1. le nom de la branche source (convention POPolitics)
+#   2. les messages de tous les commits de la PR (Conventional Commits)
+#
+# Filet de sécurité derrière les hooks locaux : une PR non conforme devient
+# ROUGE et n'est donc pas mergée (couplé à la règle "2 reviews" du CONTRIBUTING).
+# Aucune dépendance : fonctionne pour les repos Node (frontend) et Python (backends).
+
 name: pr-checks
 
 on:
@@ -26,7 +36,7 @@ jobs:
             echo "Format attendu : category/TICKET-123-short-description (feat|fix|docs|style|refactor|perf|test|chore|build|ci|revert)"
             exit 1
           fi
-          echo " Nom de branche conforme"
+          echo "✅ Nom de branche conforme"
 
   commit-messages:
     name: ci / commit-messages
@@ -50,7 +60,7 @@ jobs:
               echo "::error::Commit non conforme ($sha) : $header"
               fail=1
             else
-              echo " $header"
+              echo "✅ $header"
             fi
           done < <(git rev-list --no-merges "$base"..HEAD)
           if [ "$fail" -ne 0 ]; then
