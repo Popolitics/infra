@@ -22,7 +22,7 @@ et réappliquables à l'identique sur chaque repo.
 
 ---
 
-## 2. Prérequis (⚠️ important — repos privés)
+## 2. Prérequis (important — repos privés)
 
 Sur des repos **privés**, les rulesets ne sont **pas** disponibles sur le plan
 **GitHub Free** : il faut GitHub Pro, Team ou Enterprise Cloud. Deux options :
