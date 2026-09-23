@@ -13,6 +13,8 @@ spec:
       labels:
         app: auth-service
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: auth-service
           image: ghcr.io/popolitics/auth-service:v1.0.0
