@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: popolitics-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Popolitics/infra.git'
+    targetRevision: HEAD
+    path: 'k8s/base'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: popolitics
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
