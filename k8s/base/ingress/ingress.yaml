@@ -8,7 +8,7 @@ spec:
     - host: popolitics.local
       http:
         paths:
-          - path: /api/auth
+          - path: /
             pathType: Prefix
             backend:
               service:
