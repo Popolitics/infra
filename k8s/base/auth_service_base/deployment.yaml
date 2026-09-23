@@ -22,7 +22,10 @@ spec:
             - name: POSTGRES_USER
               value: "auth_user"
             - name: POSTGRES_PASSWORD
-              value: "popolitics"
+              valueFrom:
+                secretKeyRef:
+                  name: auth-service-secret
+                  key: DB_PASSWORD
           ports:
             - containerPort: 5432 # Port standard de PostgreSQL
           volumeMounts:
