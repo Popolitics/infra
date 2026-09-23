@@ -7,6 +7,6 @@ resources:
   - auth_service_base/pvc.yaml
   - auth_service_base/deployment.yaml
   - auth_service_base/service.yaml
-  - auth_service/secret.yaml
+  - auth_service/sealed-secret.yaml
   - auth_service/service.yaml
   - auth_service/deployment.yaml

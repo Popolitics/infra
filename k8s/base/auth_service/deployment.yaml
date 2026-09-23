@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: auth-service.yaml
-          image: ghcr.io/VOTRE_ORG_GITHUB/auth-service:latest
+          image: ghcr.io/popolitics/auth-service:v1.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
