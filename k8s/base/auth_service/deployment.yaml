@@ -23,7 +23,7 @@ spec:
             - containerPort: 8000
           env:
             - name: ALLOWED_HOSTS
-              value: "popolitics.local,localhost,127.0.0.1,auth-service-svc"
+              value: "api.popolitics.local,popolitics.local,localhost,127.0.0.1,auth-service-svc"
             - name: DEBUG
               value: "True"
             - name: DB_NAME
