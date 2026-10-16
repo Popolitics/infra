@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/Popolitics/infra.git'
-    targetRevision: main
+    targetRevision: feat/AUTH-1-init-argocd-integration-and-auth-service
     path: k8s/base/kestra
   destination:
     server: 'https://kubernetes.default.svc'
