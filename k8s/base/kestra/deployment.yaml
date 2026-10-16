@@ -17,7 +17,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: kestra
-          image: ghcr.io/popolitics/data:initial
+          image: ghcr.io/popolitics/data:357be76ef88cffba50bdc01dc070a728a306a29a
           imagePullPolicy: Always
           command:
             - kestra
