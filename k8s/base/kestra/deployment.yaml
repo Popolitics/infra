@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kestra
+  namespace: popolitics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kestra
+  template:
+    metadata:
+      labels:
+        app: kestra
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: kestra
+          image: ghcr.io/popolitics/data:initial
+          imagePullPolicy: Always
+          command:
+            - kestra
+            - server
+            - standalone
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            # Répertoire où tes scripts pourront écrire leurs fichiers de sortie
+            - name: datalake-storage
+              mountPath: /app/datalake
+      volumes:
+        - name: datalake-storage
+          hostPath:
+            path: /mnt/data-lake
+            type: DirectoryOrCreate
