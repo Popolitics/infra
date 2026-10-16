@@ -17,10 +17,9 @@ spec:
         - name: ghcr-secret
       containers:
         - name: kestra
-          image: ghcr.io/popolitics/data:357be76ef88cffba50bdc01dc070a728a306a29a
+          image: ghcr.io/popolitics/data
           imagePullPolicy: Always
-          command:
-            - kestra
+          args:
             - server
             - standalone
             - --flow-path
