@@ -7,4 +7,4 @@ resources:
 
 images:
   - name: ghcr.io/popolitics/data
-    newTag: "initial"
+    newTag: "357be76ef88cffba50bdc01dc070a728a306a29a"
