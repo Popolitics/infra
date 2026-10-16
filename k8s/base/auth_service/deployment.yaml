@@ -17,7 +17,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: auth-service
-          image: ghcr.io/popolitics/auth-service:12d1398
+          image: ghcr.io/popolitics/auth-service:4cd1514f43ee67bf170339c6f3fc320d0980b573
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
