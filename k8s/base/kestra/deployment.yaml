@@ -23,14 +23,15 @@ spec:
             - kestra
             - server
             - standalone
+            - --flow-path
+            - /app/flows
           ports:
             - containerPort: 8080
           volumeMounts:
-            # Répertoire où tes scripts pourront écrire leurs fichiers de sortie
-            - name: datalake-storage
-              mountPath: /app/datalake
+            - name: data-storage
+              mountPath: /datalake
       volumes:
-        - name: datalake-storage
+        - name: data-storage
           hostPath:
-            path: /mnt/data-lake
-            type: DirectoryOrCreate
+            path: /srv/popolitics/data
+            type: Directory
