@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: popolitics-frontend-service
+  namespace: popolitics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: popolitics-frontend-service
+  template:
+    metadata:
+      labels:
+        app: popolitics-frontend-service
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: popolitics-frontend-service
+          image: ghcr.io/popolitics/frontend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: AUTH_SERVICE_URL
+              value: "http://auth-service-svc:8000"
