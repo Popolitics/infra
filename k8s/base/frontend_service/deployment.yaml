@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: popolitics-frontend-service
-  namespace: 
+  namespace: popolitics
 spec:
   replicas: 1
   selector:
@@ -22,7 +22,5 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: NEXT_PUBLIC_API_URL
-              value: "http://api.popolitics.local"
             - name: AUTH_SERVICE_URL
               value: "http://auth-service-svc:8000"
