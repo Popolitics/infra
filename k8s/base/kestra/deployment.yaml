@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kestra
+  namespace: popolitics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kestra
+  template:
+    metadata:
+      labels:
+        app: kestra
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: kestra
+          image: ghcr.io/popolitics/data
+          imagePullPolicy: Always
+          args:
+            - server
+            - local
+            - --flow-path
+            - /app/flows
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: data-storage
+              mountPath: /datalake
+      volumes:
+        - name: data-storage
+          hostPath:
+            path: /srv/popolitics/data
+            type: Directory
