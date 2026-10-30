@@ -18,7 +18,7 @@ spec:
                 name: auth-service-svc
                 port:
                   number: 8000
-    # 2. Règle pour le service frontend      
+    # 2. Règle pour le a frontend
     - host: frontend.popolitics.local
       http:
         paths:
