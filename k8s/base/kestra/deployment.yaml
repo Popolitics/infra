@@ -24,6 +24,17 @@ spec:
             - local
             - --flow-path
             - /app/flows
+          env:
+              - name: KESTRA_CONFIGURATION
+                value: |
+                  micronaut:
+                    server:
+                      context-path: "/kestra"
+                  
+                  kestra:
+                    url: "http://popolitics.local/kestra/"
+
+
           ports:
             - containerPort: 8080
           volumeMounts:
