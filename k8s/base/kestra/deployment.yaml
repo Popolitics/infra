@@ -39,7 +39,7 @@ spec:
             - containerPort: 8080
           volumeMounts:
             - name: data-storage
-              mountPath: /datalake
+              mountPath: /data
       volumes:
         - name: data-storage
           hostPath:
