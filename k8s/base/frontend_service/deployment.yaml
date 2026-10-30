@@ -17,7 +17,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: popolitics-frontend-service
-          image: ghcr.io/popolitics/frontend
+          image: ghcr.io/popolitics/frontend:e19bcc3647eeca51554dd6aebbbed04c69f39a54
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
