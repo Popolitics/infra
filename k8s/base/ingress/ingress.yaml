@@ -1,0 +1,48 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+  namespace: popolitics
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+    - host: popolitics.local
+      http:
+        paths:
+          # Frontend
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-service-svc
+                port:
+                  number: 3000
+
+          # Django API
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service-svc
+                port:
+                  number: 8000
+
+          # ArgoCD
+          - path: /argocd
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80
+
+          # Kestra
+          - path: /kestra
+            pathType: Prefix
+            backend:
+              service:
+                name: kestra-svc
+                port:
+                  number: 8080

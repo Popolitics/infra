@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kestra-svc
+  namespace: popolitics
+spec:
+  type: ClusterIP
+  selector:
+    app: kestra
+  ports:
+    - port: 8080
+      targetPort: 8080
