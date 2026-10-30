@@ -5,4 +5,4 @@ resources:
   - service.yaml
 images:
   - name: ghcr.io/popolitics/data
-    newTag: "357be76ef88cffba50bdc01dc070a728a306a29a"
+    newTag: "9fceab6362a9b218fddf6740c1e3e3c8a631a1bc"
