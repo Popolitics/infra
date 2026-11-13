@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: popolitics-frontend-service
-  namespace: popolitics
 spec:
   replicas: 1
   selector:
@@ -17,7 +16,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: popolitics-frontend-service
-          image: ghcr.io/popolitics/frontend:e19bcc3647eeca51554dd6aebbbed04c69f39a54
+          image: ghcr.io/popolitics/frontend:bootstrap
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
