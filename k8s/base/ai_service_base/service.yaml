@@ -7,5 +7,7 @@ spec:
   selector:
     app: ai-postgres
   ports:
-    - port: 5433
+    - name: postgres
+      port: 5433
       targetPort: 5433
+  type: ClusterIP
