@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Popolitics/infra.git
     targetRevision: feat/AUTH-1-init-argocd-integration-and-auth-service
-    path: k8s/base/ai
+    path: k8s/base/ai_service_base
   destination:
     server: https://kubernetes.default.svc
     namespace: popolitics
