@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: popolitics-dev
 
 resources:
-  - k8s/base/frontend_service
+  - ../../../base/frontend_service
 
 images:
   - name: ghcr.io/popolitics/frontend
