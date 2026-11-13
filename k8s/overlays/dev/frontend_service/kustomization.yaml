@@ -9,4 +9,4 @@ resources:
 
 images:
   - name: ghcr.io/popolitics/frontend
-    newTag: dev
+    newTag: 014fe0503dbd0be42ba88f1cec1ad4a16594c0f6
