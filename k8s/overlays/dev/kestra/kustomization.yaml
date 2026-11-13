@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: popolitics-dev
+
+resources:
+  - ../../../base/kestra
+
+images:
+  - name: ghcr.io/popolitics/data
+    newTag: "5859f6151a35a9134cf57f65a3c129d4f3d79ff9"
+
+patches:
+  - target:
+      kind: Deployment
+      name: kestra
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/volumes/0/hostPath/path
+        value: /srv/popolitics/dev/kestra

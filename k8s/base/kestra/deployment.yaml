@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kestra
-  namespace: popolitics
 spec:
   replicas: 1
   selector:
@@ -43,5 +42,5 @@ spec:
       volumes:
         - name: data-storage
           hostPath:
-            path: /srv/popolitics/data
-            type: Directory
+            path: /srv/popolitics/kestra
+            type: DirectoryOrCreate
