@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: popolitics-data-db-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Popolitics/infra.git
+    targetRevision: dev
+    path: k8s/overlays/dev/data_service_base
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: popolitics-dev
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true

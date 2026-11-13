@@ -1,18 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: popolitics-ai-db
+  name: popolitics-auth-db-prod
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Popolitics/infra.git
-    targetRevision: feat/AUTH-1-init-argocd-integration-and-auth-service
-    path: k8s/base/ai_service_base
+    targetRevision: main
+    path: k8s/overlays/prod/auth_service_base
   destination:
     server: https://kubernetes.default.svc
-    namespace: popolitics
+    namespace: popolitics-prod
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
