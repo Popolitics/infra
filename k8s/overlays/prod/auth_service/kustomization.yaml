@@ -5,4 +5,4 @@ resources:
   - ../../../base/auth_service
 images:
   - name: ghcr.io/popolitics/auth-service
-    newTag: "4cd1514f43ee67bf170339c6f3fc320d0980b573"
+    newTag: "d245e3503bfe08c5f12fcc20ec2f1e3c25900552"
