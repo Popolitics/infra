@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Popolitics/infra.git
-    targetRevision: main
+    targetRevision: dev
     path: k8s/overlays/dev/auth_service
   destination:
     server: https://kubernetes.default.svc
