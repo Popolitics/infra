@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/Popolitics/ia-service.git'
+    repoURL: https://github.com/Popolitics/infra.git
     targetRevision: feat/AUTH-1-init-argocd-integration-and-auth-service
     path: k8s/base/ai
   destination:
