@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/Popolitics/infra.git
     targetRevision: main
-    path: k8s/overlays/dev/kestra
+    path: k8s/overlays/prod/kestra
   destination:
     server: https://kubernetes.default.svc
     namespace: popolitics-prod
