@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: data-postgres
-  namespace: popolitics
 spec:
   replicas: 1
   selector:
@@ -14,24 +13,24 @@ spec:
         app: data-postgres
     spec:
       containers:
-        - name: postgres
-          image: postgres:16-alpine
-          env:
-            - name: POSTGRES_DB
-              value: "data_db"
-            - name: POSTGRES_USER
-              value: "data_user"
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: auth-service-secret
-                  key: DB_PASSWORD
-          ports:
-            - containerPort: 5434
-          volumeMounts:
-            - name: postgres-data
-              mountPath: /var/lib/postgresql/data
-      volumes:
+      - name: postgres
+        image: postgres:16-alpine
+        env:
+        - name: POSTGRES_DB
+          value: data_db
+        - name: POSTGRES_USER
+          value: data_user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: auth-service-secret
+              key: DB_PASSWORD
+        ports:
+        - containerPort: 5432
+        volumeMounts:
         - name: postgres-data
-          persistentVolumeClaim:
-            claimName: data-postgres-pvc
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: data-postgres-pvc

@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: popolitics-ai-db-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Popolitics/infra.git
+    targetRevision: main
+    path: k8s/overlays/prod/ai_service_base
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: popolitics-prod
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
