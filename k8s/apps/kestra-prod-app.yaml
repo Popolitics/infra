@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: popolitics-kestra-dev
+  name: popolitics-kestra-prod
   namespace: argocd
 spec:
   project: default
@@ -11,7 +11,7 @@ spec:
     path: k8s/overlays/dev/kestra
   destination:
     server: https://kubernetes.default.svc
-    namespace: popolitics-dev
+    namespace: popolitics-prod
   syncPolicy:
     automated:
       prune: true
