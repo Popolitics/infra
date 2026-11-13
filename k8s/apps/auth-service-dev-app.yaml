@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: popolitics-auth-service-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Popolitics/infra.git
+    targetRevision: dev
+    path: k8s/overlays/dev/auth_service
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: popolitics-dev
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

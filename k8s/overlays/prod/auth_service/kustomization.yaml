@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: popolitics-prod
+resources:
+  - ../../../base/auth_service
+images:
+  - name: ghcr.io/popolitics/auth-service
+    newTag: "4cd1514f43ee67bf170339c6f3fc320d0980b573"
