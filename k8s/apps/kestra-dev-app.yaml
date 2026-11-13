@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: popolitics-kestra
+  name: popolitics-kestra-dev
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/Popolitics/infra.git'
-    targetRevision: feat/AUTH-1-init-argocd-integration-and-auth-service
-    path: k8s/base/kestra
+    repoURL: https://github.com/Popolitics/infra.git
+    targetRevision: main
+    path: k8s/overlays/dev/kestra
   destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: popolitics
+    server: https://kubernetes.default.svc
+    namespace: popolitics-dev
   syncPolicy:
     automated:
       prune: true
