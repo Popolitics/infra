@@ -10,7 +10,7 @@ spec:
     targetRevision: feat/AUTH-1-init-argocd-integration-and-auth-service
     path: k8s/base/ai
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: https://kubernetes.default.svc
     namespace: popolitics
   syncPolicy:
     automated:
