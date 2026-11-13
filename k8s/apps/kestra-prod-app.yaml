@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: popolitics-kestra-dev
+  name: popolitics-kestra-prod
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Popolitics/infra.git
     targetRevision: main
-    path: k8s/overlays/dev/kestra
+    path: k8s/overlays/prod/kestra
   destination:
     server: https://kubernetes.default.svc
-    namespace: popolitics-dev
+    namespace: popolitics-prod
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+        - CreateNamespace=true
