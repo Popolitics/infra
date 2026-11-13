@@ -1,0 +1,49 @@
+name: Mirror to Epitech Repo
+
+on:
+  # Pour réactiver le mirroir automatique, décommenter :
+  # push:
+  #   branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: epitech-mirror
+  cancel-in-progress: false
+
+jobs:
+  to_epitech:
+    if: github.repository == 'Popolitics/infra'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout infra + submodules
+        uses: actions/checkout@v4
+        with:
+          path: src
+          submodules: recursive
+
+      - uses: webfactory/ssh-agent@dc588b651fe13675774614f8e6a936a468676387 # v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Clone Epitech repo
+        run: git clone git@github.com:EpitechMscProPromo2027/T-ESP-901-NAN-9-1-T-ESP-901-1.git dest
+
+      - name: Sync files (flatten submodules)
+        run: |
+          rsync -a --delete \
+            --exclude='.git' --exclude='.gitmodules' \
+            --exclude='master-sealed-secrets-key.yaml' \
+            src/ dest/
+
+      - name: Commit & push
+        working-directory: dest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Rien à synchroniser"; exit 0; fi
+          AUTHOR="$(cd ../src && git log -1 --format='%an <%ae>')"
+          git commit --author="$AUTHOR" \
+                     -m "sync: Popolitics/infra@${GITHUB_SHA::7}" \
+                     -m "$(cd ../src && git submodule status)"
+          git push origin HEAD:main
