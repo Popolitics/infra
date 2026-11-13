@@ -12,6 +12,9 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: popolitics-prod
-  syncPolicy:
-    syncOptions:
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
     - CreateNamespace=true
