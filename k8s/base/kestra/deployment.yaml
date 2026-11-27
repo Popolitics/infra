@@ -71,11 +71,13 @@ spec:
             - name: DOCKER_TLS_CERTDIR
               value: ""
 
+          command:
+            - dockerd
+
           args:
-            - "dockerd"
-            - "--host=tcp://127.0.0.1:2375"
-            - "--host=unix:///var/run/docker.sock"
-            - "--tls=false"
+              - "--host=tcp://127.0.0.1:2375"
+              - "--host=unix:///var/run/docker.sock"
+              - "--tls=false"
 
           resources:
             requests:
