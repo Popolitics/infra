@@ -60,6 +60,7 @@ spec:
             - name: kestra-tmp
               mountPath: /tmp
 
+
         - name: dind
           image: docker:27-dind
 
@@ -71,8 +72,10 @@ spec:
               value: ""
 
           args:
+            - "dockerd"
             - "--host=tcp://127.0.0.1:2375"
             - "--host=unix:///var/run/docker.sock"
+            - "--tls=false"
 
           resources:
             requests:
@@ -89,6 +92,8 @@ spec:
                 - info
             initialDelaySeconds: 10
             periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
 
           volumeMounts:
             - name: docker-storage
@@ -96,22 +101,3 @@ spec:
 
             - name: kestra-tmp
               mountPath: /tmp
-
-      volumes:
-        - name: data-storage
-          hostPath:
-            path: /srv/popolitics/data
-            type: DirectoryOrCreate
-
-        - name: kestra-database
-          hostPath:
-            path: /srv/popolitics/data/kestra/prod/database
-            type: Directory
-
-        - name: docker-storage
-          hostPath:
-            path: /srv/popolitics/data/kestra/prod/docker
-            type: Directory
-
-        - name: kestra-tmp
-          emptyDir: {}
