@@ -43,9 +43,13 @@ spec:
                 micronaut:
                   server:
                     context-path: "/kestra"
-
                 kestra:
                   url: "http://popolitics.local/kestra/"
+                  plugins:
+                    defaults:
+                      - type: io.kestra.plugin.scripts.runner.docker.Docker
+                        values:
+                          host: "tcp://127.0.0.1:2375"
 
           ports:
             - containerPort: 8080
