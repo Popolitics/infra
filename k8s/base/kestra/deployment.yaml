@@ -1,46 +1,117 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kestra
+
 spec:
   replicas: 1
+
+  strategy:
+    type: Recreate
+
   selector:
     matchLabels:
       app: kestra
+
   template:
     metadata:
       labels:
         app: kestra
+
     spec:
       imagePullSecrets:
         - name: ghcr-secret
+
       containers:
         - name: kestra
           image: ghcr.io/popolitics/data
           imagePullPolicy: Always
+
           args:
             - server
             - local
             - --flow-path
             - /app/flows
-          env:
-              - name: KESTRA_CONFIGURATION
-                value: |
-                  micronaut:
-                    server:
-                      context-path: "/kestra"
-                  
-                  kestra:
-                    url: "http://popolitics.local/kestra/"
 
+          env:
+            - name: DOCKER_HOST
+              value: "tcp://127.0.0.1:2375"
+
+            - name: KESTRA_CONFIGURATION
+              value: |
+                micronaut:
+                  server:
+                    context-path: "/kestra"
+
+                kestra:
+                  url: "http://popolitics.local/kestra/"
 
           ports:
             - containerPort: 8080
+
           volumeMounts:
             - name: data-storage
               mountPath: /data
+
+            - name: kestra-database
+              mountPath: /app/data
+
+            - name: kestra-tmp
+              mountPath: /tmp
+
+        - name: dind
+          image: docker:27-dind
+
+          securityContext:
+            privileged: true
+
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
+
+          args:
+            - "--host=tcp://127.0.0.1:2375"
+            - "--host=unix:///var/run/docker.sock"
+
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "3Gi"
+
+          readinessProbe:
+            exec:
+              command:
+                - docker
+                - info
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          volumeMounts:
+            - name: docker-storage
+              mountPath: /var/lib/docker
+
+            - name: kestra-tmp
+              mountPath: /tmp
+
       volumes:
         - name: data-storage
           hostPath:
-            path: /srv/popolitics/kestra
+            path: /srv/popolitics/data
             type: DirectoryOrCreate
+
+        - name: kestra-database
+          hostPath:
+            path: /srv/popolitics/data/kestra/prod/database
+            type: Directory
+
+        - name: docker-storage
+          hostPath:
+            path: /srv/popolitics/data/kestra/prod/docker
+            type: Directory
+
+        - name: kestra-tmp
+          emptyDir: {}
