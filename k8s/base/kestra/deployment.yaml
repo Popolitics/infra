@@ -60,24 +60,23 @@ spec:
             - name: kestra-tmp
               mountPath: /tmp
 
-
         - name: dind
           image: docker:27-dind
 
           securityContext:
             privileged: true
 
-          env:
-            - name: DOCKER_TLS_CERTDIR
-              value: ""
-
           command:
             - dockerd
 
           args:
-              - "--host=tcp://127.0.0.1:2375"
-              - "--host=unix:///var/run/docker.sock"
-              - "--tls=false"
+            - "--host=tcp://127.0.0.1:2375"
+            - "--host=unix:///var/run/docker.sock"
+            - "--tls=false"
+
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
 
           resources:
             requests:
@@ -103,3 +102,22 @@ spec:
 
             - name: kestra-tmp
               mountPath: /tmp
+
+      volumes:
+        - name: data-storage
+          hostPath:
+            path: /srv/popolitics/data
+            type: DirectoryOrCreate
+
+        - name: kestra-database
+          hostPath:
+            path: /srv/popolitics/data/kestra/prod/database
+            type: Directory
+
+        - name: docker-storage
+          hostPath:
+            path: /srv/popolitics/data/kestra/prod/docker
+            type: Directory
+
+        - name: kestra-tmp
+          emptyDir: {}
