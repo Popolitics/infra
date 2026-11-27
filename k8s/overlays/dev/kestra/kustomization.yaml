@@ -34,7 +34,19 @@ patches:
           kestra:
             url: "http://dev.popolitics.local/kestra/"
             plugins:
+              configurations:
+                - type: io.kestra.plugin.scripts.runner.docker.Docker
+                  values:
+                    volume-enabled: true
+
               defaults:
                 - type: io.kestra.plugin.scripts.runner.docker.Docker
                   values:
                     host: "tcp://127.0.0.1:2375"
+                    config: "/home/kestra/.docker/config.json"
+                    volumes:
+                      - "/data:/data"
+
+                - type: io.kestra.plugin.scripts.python.Commands
+                  values:
+                    containerImage: "ghcr.io/popolitics/data-python:latest"

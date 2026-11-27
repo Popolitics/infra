@@ -46,10 +46,22 @@ spec:
                 kestra:
                   url: "http://popolitics.local/kestra/"
                   plugins:
+                    configurations:
+                      - type: io.kestra.plugin.scripts.runner.docker.Docker
+                        values:
+                          volume-enabled: true
+
                     defaults:
                       - type: io.kestra.plugin.scripts.runner.docker.Docker
                         values:
                           host: "tcp://127.0.0.1:2375"
+                          config: "/home/kestra/.docker/config.json"
+                          volumes:
+                            - "/data:/data"
+
+                      - type: io.kestra.plugin.scripts.python.Commands
+                        values:
+                          containerImage: "ghcr.io/popolitics/data-python:latest"
 
           ports:
             - containerPort: 8080
@@ -63,6 +75,10 @@ spec:
 
             - name: kestra-tmp
               mountPath: /tmp
+
+            - name: ghcr-config
+              mountPath: /home/kestra/.docker
+              readOnly: true
 
         - name: dind
           image: docker:27-dind
@@ -107,6 +123,13 @@ spec:
             - name: kestra-tmp
               mountPath: /tmp
 
+            - name: data-storage
+              mountPath: /data
+
+            - name: ghcr-config
+              mountPath: /root/.docker
+              readOnly: true
+
       volumes:
         - name: data-storage
           hostPath:
@@ -125,3 +148,10 @@ spec:
 
         - name: kestra-tmp
           emptyDir: {}
+
+        - name: ghcr-config
+          secret:
+            secretName: ghcr-secret
+            items:
+              - key: .dockerconfigjson
+                path: config.json
