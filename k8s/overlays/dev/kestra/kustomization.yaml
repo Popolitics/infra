@@ -6,7 +6,7 @@ resources:
   - ../../../base/kestra
 images:
   - name: ghcr.io/popolitics/data
-    newTag: "77fbad0b10b24b42393900c0ac00f9bc4e28df56"
+    newTag: "e37c2ed04c1a84c8e74d66db2b6e990c078dc6f1"
 patches:
   - target:
       kind: Deployment
