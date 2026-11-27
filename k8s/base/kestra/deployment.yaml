@@ -43,6 +43,7 @@ spec:
                 micronaut:
                   server:
                     context-path: "/kestra"
+
                 kestra:
                   url: "http://popolitics.local/kestra/"
                   plugins:
@@ -55,7 +56,6 @@ spec:
                       - type: io.kestra.plugin.scripts.runner.docker.Docker
                         values:
                           host: "tcp://127.0.0.1:2375"
-                          config: "/home/kestra/.docker/config.json"
                           volumes:
                             - "/data:/data"
 
