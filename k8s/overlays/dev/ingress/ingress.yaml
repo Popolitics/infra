@@ -18,6 +18,15 @@ spec:
                 name: auth-service-svc
                 port:
                   number: 8000
+
+          - path: /kestra
+            pathType: Prefix
+            backend:
+              service:
+                name: kestra-svc
+                port:
+                  number: 8080
+
           - path: /
             pathType: Prefix
             backend:
